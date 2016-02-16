@@ -21,6 +21,28 @@ class Client {
     }
   }
 
+  public function get_folder_timelogs( $id, $start, $finish ) {
+    $params = [];
+    $params[ 'trackedDate' ] = "{start:'$start',end:'$finish'}";
+
+    return $this->requestFactory([
+      'method' => 'get',
+      'action' => '/folders/'.$id.'/timelogs',
+      'params' => $params
+    ]);
+  }
+
+  public function get_account_timelogs( $start, $finish ) {
+    $params = [];
+    $params[ 'trackedDate' ] = "{start:'$start',end:'$finish'}";
+
+    return $this->requestFactory([
+      'method' => 'get',
+      'action' => '/timelogs',
+      'params' => $params
+    ]);
+  }
+
   public function get_contacts( $ids = [], $metadata = [], $fields = [] ) {
     if ( count( $ids ) > 100 )
       throw new \Exception( 'Maximum number of IDs is 100' );
