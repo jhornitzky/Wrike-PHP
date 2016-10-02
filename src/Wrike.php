@@ -32,6 +32,35 @@ class Client {
     ]);
   }
 
+  public function get_completed_tasks( $status = 'Completed', $start, $end, $fields) {
+    $params = [];
+	$params[ 'status' ] = $status;
+    $params[ 'dueDate' ] = "{start:'$start', end:'$end'}";
+
+	if (is_array($fields))
+		$params[ 'fields' ] = "[\"".implode("\",\"", $fields)."\"]";
+
+    return $this->requestFactory([
+      'method' => 'get',
+      'action' => '/tasks',
+      'params' => $params
+    ]);
+  }
+
+  public function get_tasks( $status = 'Active', $end, $fields) {
+    $params = [];
+	$params[ 'status' ] = $status;
+    $params[ 'dueDate' ] = "{end:'$end'}";
+	if (is_array($fields))
+		$params[ 'fields' ] = "[\"".implode("\",\"", $fields)."\"]";
+
+    return $this->requestFactory([
+      'method' => 'get',
+      'action' => '/tasks',
+      'params' => $params
+    ]);
+  }
+
   public function get_account_timelogs( $start, $finish ) {
     $params = [];
     $params[ 'trackedDate' ] = "{start:'$start',end:'$finish'}";
