@@ -21,6 +21,10 @@ class Client {
     }
   }
 
+  public function send_request_via_factory( $request = [] ) {
+    return $this->requestFactory($request);
+  }
+
   public function get_folder_timelogs( $id, $start, $finish ) {
     $params = [];
     $params[ 'trackedDate' ] = "{start:'$start',end:'$finish'}";
